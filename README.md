@@ -25,7 +25,7 @@ docker ps -a
 docker commit ${commit_id} ${your_image_name}
 
 #
-docker run -d -p 80:8080 --name ${NAME} ${your_image_name} /sbin/init
+docker run -d -p 80:8080 centos_with_tomcat /sbin/init
 
 #
 docker exec -it ${NAMES} bash
