@@ -104,8 +104,13 @@ docker run -d -p 8888:8080 --name gitbucket-container gitbucket
 > -dについて。デーモンとして実行するデタッチドモード(バックグラウンドで実行すること)。-dを指定した場合、--rmは指定できない。このコンテナは50回自分自身にping を実行すると自動的に停止します。
 デタッチドモードで起動しているコンテナにはアタッチすることができます。
 
-#標準出力で起動
+# 標準出力で起動
 docker run -it --rm -p 8888:8080 -p 29418:29418 --name gitbucket-container gitbucket
+
+# コンテナにログイン
+docker exec -it ${NAMES} /bin/bash
+> docker exec -it gitbucket-container /bin/bash
+
 ```
 
 

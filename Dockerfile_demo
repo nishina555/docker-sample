@@ -1,0 +1,5 @@
+FROM tomcat:7.0.70-jre8
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+ADD demo-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.war
+EXPOSE 8080 29418
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
