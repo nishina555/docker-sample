@@ -1,7 +1,6 @@
 ## 概要
 dockerにtomcatコンテナを作成し、warファイルをデプロイ・実行結果の確認を行う。  
-tocatのバージョンはtomcat:7.0.70-jre8を利用。(warファイルはjdk1.8を利用しているため、tomcatのjre8を利用する)  
-**TODO** dockerファイルを作成し、gitbucketを起動させる
+tocatのバージョンはtomcat:7.0.70-jre8を利用。(warファイルはjdk1.8を利用しているため、tomcatのjre8を利用する)
 
 ## OSイメージを利用してtomcat環境等を手動で作成・検証する手順
 #### 事前準備 (macの場合)
@@ -105,15 +104,25 @@ docker run -d -p 8888:8080 --name gitbucket-container gitbucket
 デタッチドモードで起動しているコンテナにはアタッチすることができます。
 
 # 標準出力で起動
-docker run -it --rm -p 8888:8080 -p 29418:29418 --name gitbucket-container gitbucket
+docker run -it --rm -p 8888:8080 --name gitbucket-container gitbucket
+docker run -it --rm -p 8888:8080 --name hello-container hello
+
+# アクセス
+http::${port_number}//${container_ip}/${war_file_name}
+> http://192.168.99.100:8888/demo-0.0.1-SNAPSHOT/
+> http://192.168.99.100:8888/gitbucket/
 
 # コンテナにログイン
 docker exec -it ${NAMES} /bin/bash
 > docker exec -it gitbucket-container /bin/bash
 
+# ログの確認
+tail -f /usr/local/tomcat/logs/catalina.YYYY-MM-DD.logs
+
+# warファイルの展開の確認
+ls -l /usr/lcoal/tomcat/webapps
+
 ```
-
-
 
 ### 戻し
 ```
@@ -123,6 +132,3 @@ docker rm -f `docker ps -a -q`
 # docker imageの削除
 docker rmi ${image}
 ```
-
-### メモ
-* vpn接続などをしているとうまくアクセスできなくなるので、vpnが切れているか確認をする
